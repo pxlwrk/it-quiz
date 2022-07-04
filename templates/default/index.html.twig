@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Starten Sie Ihr Quiz
+{% endblock %}
+
+{% block body %}
+    <header>
+        <h1 class="start">Nerd oder Normalo?!</h1>
+    </header>
+    <main>
+        <a href="/" class="press-start">$ ./start.sh</a>
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+<script type="text/javascript">
+    $(document).ready(function (){
+        const rand = Math.random().toString(16).substr(2, 8);
+        $('#qrcode').qrcode({width: 80, height: 80, text: rand});
+    });
+</script>
+
+{% endblock %}
