@@ -6,8 +6,8 @@ body {
 }
 
 #binary {
-    max-width: 120%;
-    max-height: 120%;
+    max-width: 120vw;
+    max-height: 120vh;
     word-wrap: break-word;
     overflow-wrap: break-word;
     position: absolute;
@@ -15,28 +15,28 @@ body {
     left: -20px;
     right: -20px;
     bottom: -20px;
-    font-size: 3rem;
+    font-size: 2vw;
     opacity: 10%;
     font-family: monospace;
     font-style: italic;
-    line-height: 2rem;
+    line-height: 2vw;
     z-index: -999;
     overflow: hidden;
 }
 
 h1.start {
-    font-size: 10rem;
+    font-size: 8vw;
     background-color: #FFF;
     color: #000;
-    padding: 1rem 3rem;
+    padding: 1vw 2vw;
     display: inline-block;
     transform: rotate(-5deg);
-    margin-top: 15rem;
+    margin-top: 20vh;
 }
 
 a.press-start {
     display: inline-block;
-    font-size: 4rem;
+    font-size: 4vw;
     text-decoration: none;
     color: #e1d25e;
     font-family: monospace;

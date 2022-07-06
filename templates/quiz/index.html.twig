@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello QuizController!{% endblock %}
+
+{% block body %}
+<header>
+    <h1 class="start">{{ slug }}</h1>
+</header>
+    <main>
+
+    </main>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        $(document).ready(function (){
+            const rand = Math.random().toString(16).substring(2, 8);
+            $('#qrcode').qrcode({width: 80, height: 80, text: window.location.href});
+        });
+    </script>
+
+{% endblock %}
