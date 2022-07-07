@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="binary"></div>
+    {{ quiz.slug }}
+{% endblock %}
+
+{% block title %}
+Los geht's
+{% endblock %}
+
+{% block footer %}
+<div id="qrcode">
+    <img src="{{ path('qr_svg', {'slug': quiz.slug}) }}" />
+</div>
+{% endblock %}

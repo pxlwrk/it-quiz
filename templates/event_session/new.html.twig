@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EventSession{% endblock %}
+
+{% block body %}
+    <h1>Create new EventSession</h1>
+
+    {{ include('event_session/_form.html.twig') }}
+
+    <a href="{{ path('app_event_session_index') }}">back to list</a>
+{% endblock %}

@@ -4,7 +4,7 @@
 
 {% block body %}
 <header>
-    <h1 class="start">{{ slug }}</h1>
+    <h1 class="start">{{ quiz.slug }}</h1>
 </header>
     <main>
 
@@ -19,5 +19,4 @@
             $('#qrcode').qrcode({width: 80, height: 80, text: window.location.href});
         });
     </script>
-
 {% endblock %}

@@ -18,16 +18,20 @@ class Topic
     #[ORM\Column(type: 'string', length: 255)]
     private $name;
 
-    #[ORM\ManyToMany(targetEntity: Quiz::class, inversedBy: 'topics')]
-    private $quizzes;
+    #[ORM\ManyToMany(targetEntity: Quiz::class, inversedBy: 'Topics')]
+    private $Quizzes;
 
-    #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Question::class)]
-    private $questions;
+    #[ORM\OneToMany(mappedBy: 'Topic', targetEntity: Question::class)]
+    private $Questions;
+
+    #[ORM\ManyToMany(targetEntity: EventSession::class, mappedBy: 'Topics')]
+    private $EventSessions;
 
     public function __construct()
     {
-        $this->quizzes = new ArrayCollection();
-        $this->questions = new ArrayCollection();
+        $this->Quizzes = new ArrayCollection();
+        $this->Questions = new ArrayCollection();
+        $this->EventSessions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -52,21 +56,21 @@ class Topic
      */
     public function getQuizzes(): Collection
     {
-        return $this->quizzes;
+        return $this->Quizzes;
     }
 
-    public function addQuiz(Quiz $quiz): self
+    public function addQuiz(Quiz $Quiz): self
     {
-        if (!$this->quizzes->contains($quiz)) {
-            $this->quizzes[] = $quiz;
+        if (!$this->Quizzes->contains($Quiz)) {
+            $this->Quizzes[] = $Quiz;
         }
 
         return $this;
     }
 
-    public function removeQuiz(Quiz $quiz): self
+    public function removeQuiz(Quiz $Quiz): self
     {
-        $this->quizzes->removeElement($quiz);
+        $this->Quizzes->removeElement($Quiz);
 
         return $this;
     }
@@ -76,26 +80,53 @@ class Topic
      */
     public function getQuestions(): Collection
     {
-        return $this->questions;
+        return $this->Questions;
     }
 
-    public function addQuestion(Question $question): self
+    public function addQuestion(Question $Question): self
     {
-        if (!$this->questions->contains($question)) {
-            $this->questions[] = $question;
-            $question->setTopic($this);
+        if (!$this->Questions->contains($Question)) {
+            $this->Questions[] = $Question;
+            $Question->setTopic($this);
         }
 
         return $this;
     }
 
-    public function removeQuestion(Question $question): self
+    public function removeQuestion(Question $Question): self
     {
-        if ($this->questions->removeElement($question)) {
+        if ($this->Questions->removeElement($Question)) {
             // set the owning side to null (unless already changed)
-            if ($question->getTopic() === $this) {
-                $question->setTopic(null);
+            if ($Question->getTopic() === $this) {
+                $Question->setTopic(null);
             }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventSession>
+     */
+    public function getEventSessions(): Collection
+    {
+        return $this->EventSessions;
+    }
+
+    public function addEventSession(EventSession $EventSession): self
+    {
+        if (!$this->EventSessions->contains($EventSession)) {
+            $this->EventSessions[] = $EventSession;
+            $EventSession->addTopic($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventSession(EventSession $EventSession): self
+    {
+        if ($this->EventSessions->removeElement($EventSession)) {
+            $EventSession->removeTopic($this);
         }
 
         return $this;

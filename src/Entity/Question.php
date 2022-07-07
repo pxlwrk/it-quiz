@@ -28,12 +28,18 @@ class Question
     #[ORM\Column(type: 'string', length: 255)]
     private $answerC;
 
-    #[ORM\Column(type: 'string', length: 10)]
-    private $solution;
-
-    #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'questions')]
+    #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'Questions')]
     #[ORM\JoinColumn(nullable: false)]
-    private $topic;
+    private $Topic;
+
+    #[ORM\Column(type: 'boolean')]
+    private $solutionA;
+
+    #[ORM\Column(type: 'boolean')]
+    private $solutionB;
+
+    #[ORM\Column(type: 'boolean')]
+    private $solutionC;
 
     public function getId(): ?int
     {
@@ -100,26 +106,50 @@ class Question
         return $this;
     }
 
-    public function getSolution(): ?string
+    public function getTopic(): ?Topic
     {
-        return $this->solution;
+        return $this->Topic;
     }
 
-    public function setSolution(string $solution): self
+    public function setTopic(?Topic $Topic): self
     {
-        $this->solution = $solution;
+        $this->Topic = $Topic;
 
         return $this;
     }
 
-    public function getTopic(): ?Topic
+    public function isSolutionA(): ?bool
     {
-        return $this->topic;
+        return $this->solutionA;
     }
 
-    public function setTopic(?Topic $topic): self
+    public function setSolutionA(bool $solutionA): self
     {
-        $this->topic = $topic;
+        $this->solutionA = $solutionA;
+
+        return $this;
+    }
+
+    public function isSolutionB(): ?bool
+    {
+        return $this->solutionB;
+    }
+
+    public function setSolutionB(bool $solutionB): self
+    {
+        $this->solutionB = $solutionB;
+
+        return $this;
+    }
+
+    public function isSolutionC(): ?bool
+    {
+        return $this->solutionC;
+    }
+
+    public function setSolutionC(bool $solutionC): self
+    {
+        $this->solutionC = $solutionC;
 
         return $this;
     }

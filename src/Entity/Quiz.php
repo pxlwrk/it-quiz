@@ -24,12 +24,23 @@ class Quiz
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $contactEmail;
 
-    #[ORM\ManyToMany(targetEntity: Topic::class, mappedBy: 'quizzes')]
-    private $topics;
+    #[ORM\ManyToMany(targetEntity: Topic::class, mappedBy: 'Quizzes')]
+    private $Topics;
+
+    #[ORM\ManyToOne(targetEntity: EventSession::class, inversedBy: 'Quizzes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private $EventSession;
+
 
     public function __construct()
     {
-        $this->topics = new ArrayCollection();
+        $this->Topics = new ArrayCollection();
+        $this->EventSessions = new ArrayCollection();
+    }
+
+    public function __toString()
+    {
+        return $this->slug;
     }
 
     public function getId(): ?int
@@ -78,25 +89,39 @@ class Quiz
      */
     public function getTopics(): Collection
     {
-        return $this->topics;
+        return $this->Topics;
     }
 
-    public function addTopic(Topic $topic): self
+    public function addTopic(Topic $Topic): self
     {
-        if (!$this->topics->contains($topic)) {
-            $this->topics[] = $topic;
-            $topic->addQuiz($this);
+        if (!$this->Topics->contains($Topic)) {
+            $this->Topics[] = $Topic;
+            $Topic->addQuiz($this);
         }
 
         return $this;
     }
 
-    public function removeTopic(Topic $topic): self
+    public function removeTopic(Topic $Topic): self
     {
-        if ($this->topics->removeElement($topic)) {
-            $topic->removeQuiz($this);
+        if ($this->Topics->removeElement($Topic)) {
+            $Topic->removeQuiz($this);
         }
 
         return $this;
     }
+
+    public function getEventSession(): ?EventSession
+    {
+        return $this->EventSession;
+    }
+
+    public function setEventSession(?EventSession $EventSession): self
+    {
+        $this->EventSession = $EventSession;
+
+        return $this;
+    }
+
+
 }

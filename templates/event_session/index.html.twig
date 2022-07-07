@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EventSession index{% endblock %}
+
+{% block body %}
+    <h1>EventSession index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>IsActive</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event_session in event_sessions %}
+            <tr>
+                <td>{{ event_session.id }}</td>
+                <td>{{ event_session.title }}</td>
+                <td>{{ event_session.isActive ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('app_event_session_show', {'id': event_session.id}) }}">show</a>
+                    <a href="{{ path('app_event_session_edit', {'id': event_session.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_event_session_new') }}">Create new</a>
+{% endblock %}

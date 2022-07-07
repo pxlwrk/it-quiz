@@ -21,10 +21,9 @@
         {% endblock %}
     </head>
     <body>
-    <div id="binary"></div>
         {% block body %}{% endblock %}
-        <footer>
-            <div id="qrcode"></div>
+        <footer class="fixed-bottom">
+            {% block footer %}{% endblock %}
             <div class="powered-by"></div>
         </footer>
     </body>

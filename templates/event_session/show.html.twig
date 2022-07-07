@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EventSession{% endblock %}
+
+{% block body %}
+    <h1>EventSession</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event_session.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ event_session.title }}</td>
+            </tr>
+            <tr>
+                <th>IsActive</th>
+                <td>{{ event_session.isActive ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_event_session_index') }}">back to list</a>
+
+    <a href="{{ path('app_event_session_edit', {'id': event_session.id}) }}">edit</a>
+
+    {{ include('event_session/_delete_form.html.twig') }}
+{% endblock %}

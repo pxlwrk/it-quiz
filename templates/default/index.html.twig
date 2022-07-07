@@ -5,11 +5,24 @@
 {% endblock %}
 
 {% block body %}
-    <header>
+    <div id="binary"></div>
+
+    {% if not eventSession %}
+        <div class="col-lg-8 mx-auto p-3 py-md-5">
+            <div class="alert alert-danger" role="alert">
+                <h4 class="alert-heading">Keine EventSession!</h4>
+                <p class="mb-0"><a href="{{ path('app_management') }}">App Management</a></p>
+            </div>
+        </div>
+
+    {% endif %}
+    <header class="text-center">
         <h1 class="start">Nerd oder Normalo?!</h1>
     </header>
     <main>
-        <a href="{{ path('app_quiz') }}" class="press-start">$ ./start.sh</a>
+        {% if eventSession %}
+        <a href="{{ path('app_quiz', {'id': eventSession.id}) }}" class="press-start">$ ./start.sh</a>
+        {% endif %}
     </main>
 {% endblock %}
 
