@@ -17,7 +17,7 @@ class EventSessionController extends AbstractController
     public function index(EventSessionRepository $eventSessionRepository): Response
     {
         return $this->render('event_session/index.html.twig', [
-            'event_sessions' => $eventSessionRepository->findAll(),
+            'event_sessions' => $eventSessionRepository->findBy([], ['eventDate' => 'ASC']),
         ]);
     }
 
@@ -73,6 +73,14 @@ class EventSessionController extends AbstractController
             $eventSessionRepository->remove($eventSession, true);
         }
 
+        return $this->redirectToRoute('app_event_session_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/active', name: 'app_event_session_active', methods: ['GET'])]
+    public function setActive(EventSession $eventSession, EventSessionRepository $eventSessionRepository): Response
+    {
+        $eventSession->setIsActive(!$eventSession->isIsActive());
+        $eventSessionRepository->add($eventSession, true);
         return $this->redirectToRoute('app_event_session_index', [], Response::HTTP_SEE_OTHER);
     }
 }

@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: EventSessionRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class EventSession
 {
     #[ORM\Id]
@@ -26,6 +27,12 @@ class EventSession
 
     #[ORM\OneToMany(mappedBy: 'EventSession', targetEntity: Quiz::class, orphanRemoval: true)]
     private $Quizzes;
+
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private $decription;
+
+    #[ORM\Column(type: 'datetime')]
+    private $eventDate;
 
 
     public function __construct()
@@ -115,5 +122,35 @@ class EventSession
         }
 
         return $this;
+    }
+
+    public function getDecription(): ?string
+    {
+        return $this->decription;
+    }
+
+    public function setDecription(?string $decription): self
+    {
+        $this->decription = $decription;
+
+        return $this;
+    }
+
+    public function getEventDate(): ?\DateTimeInterface
+    {
+        return $this->eventDate;
+    }
+
+    public function setEventDate(\DateTimeInterface $eventDate): self
+    {
+        $this->eventDate = $eventDate;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setActiveValue(): void
+    {
+        $this->isActive = false;
     }
 }

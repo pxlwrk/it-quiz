@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Nerd oder Niete?! - {% block title %}{% endblock %}</title>
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body>
+    <main>
+        <div class="col-lg-8 mx-auto p-3 py-md-5">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_default') }}">Start</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_management') }}">Management</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            {% block body %}{% endblock %}
+        </div>
+    </main>
+        <footer class="fixed-bottom">
+            {% block footer %}{% endblock %}
+            <div class="powered-by"></div>
+        </footer>
+    </body>
+</html>

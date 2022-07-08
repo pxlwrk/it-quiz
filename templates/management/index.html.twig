@@ -1,15 +1,14 @@
-{% extends 'base.html.twig' %}
+{% extends 'mgmt.html.twig' %}
 
 {% block title %}App Management{% endblock %}
 
 {% block body %}
-    <div class="col-lg-8 mx-auto p-3 py-md-5">
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-                <h5 class="card-title">Event Sessions</h5>
-                <p class="card-text">Planung der Veranstaltungen</p>
-                <a href="{{ path('app_event_session_index') }}" class="btn btn-primary">Übersicht</a>
-            </div>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Event Sessions</h5>
+            <p class="card-text">Planung der Veranstaltungen</p>
+            <a href="{{ path('app_event_session_index') }}" class="btn btn-primary">Übersicht</a>
         </div>
     </div>
 {% endblock %}

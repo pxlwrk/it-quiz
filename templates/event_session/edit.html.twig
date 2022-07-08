@@ -1,13 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'mgmt.html.twig' %}
 
-{% block title %}Edit EventSession{% endblock %}
+{% block title %}Veranstaltung bearbeiten{% endblock %}
 
 {% block body %}
-    <h1>Edit EventSession</h1>
+    <h1>Veranstaltung bearbeiten</h1>
 
-    {{ include('event_session/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('event_session/_form.html.twig') }}
 
-    <a href="{{ path('app_event_session_index') }}">back to list</a>
-
+    <a href="{{ path('app_event_session_index') }}">Zurück zur Übersicht</a>
     {{ include('event_session/_delete_form.html.twig') }}
+
 {% endblock %}

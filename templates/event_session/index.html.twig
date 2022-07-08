@@ -1,37 +1,33 @@
-{% extends 'base.html.twig' %}
+{% extends 'mgmt.html.twig' %}
 
 {% block title %}EventSession index{% endblock %}
 
 {% block body %}
-    <h1>EventSession index</h1>
+    <h1>Veranstaltungen</h1>
+    <div class="text-end mb-3"><a class="btn btn-success btn-sm" href="{{ path('app_event_session_new') }}">Erstellen</a></div>
+    <div class="list-group">
+    {% for event_session in event_sessions %}
+        <div
+           class="list-group-item list-group-item-action {{ event_session.isActive ? 'active" aria-current="true' }}"
+        >
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{ event_session.title }}</h5>
+                <small><span class="badge rounded-pill bg-secondary">{{ event_session.quizzes.count }}</span></small>
+            </div>
+            <p class="mb-1">{{ event_session.decription }}</p>
+            <small>Datum: {{ event_session.eventDate|date("d.m.Y H:i") }} Uhr</small>
+            <p class="mt-1 mb-1">
+                <a href="{{ path('app_event_session_edit', {'id': event_session.id}) }}" class="btn btn-sm btn-secondary">Bearbeiten</a>
+                <a href="{{ path('app_event_session_active', {'id': event_session.id}) }}" class="btn btn-sm btn-info">{{ event_session.isActive ? 'Deaktivieren' : 'Aktivieren' }}</a>
+            </p>
+        </div>
+    {% else %}
+        <div class="list-group-item list-group-item-action bg-light">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1 text-danger">Noch keine EventSession angelegt</h5>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>IsActive</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for event_session in event_sessions %}
-            <tr>
-                <td>{{ event_session.id }}</td>
-                <td>{{ event_session.title }}</td>
-                <td>{{ event_session.isActive ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_event_session_show', {'id': event_session.id}) }}">show</a>
-                    <a href="{{ path('app_event_session_edit', {'id': event_session.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_event_session_new') }}">Create new</a>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
 {% endblock %}
