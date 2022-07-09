@@ -153,4 +153,9 @@ class EventSession
     {
         $this->isActive = false;
     }
+
+    public function __toString(): string
+    {
+        return $this->title;
+    }
 }

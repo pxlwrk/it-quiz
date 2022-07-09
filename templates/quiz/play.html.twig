@@ -2,7 +2,6 @@
 
 {% block body %}
     <div id="binary"></div>
-    {{ quiz.slug }}
 {% endblock %}
 
 {% block title %}
@@ -11,6 +10,6 @@ Los geht's
 
 {% block footer %}
 <div id="qrcode">
-    <img src="{{ path('qr_svg', {'slug': quiz.slug}) }}" />
+    <img src="{{ path('qr_svg', {'slug': quiz.slug}) }}" alt="{{ quiz.slug }}" />
 </div>
 {% endblock %}

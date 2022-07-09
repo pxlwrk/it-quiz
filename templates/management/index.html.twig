@@ -3,12 +3,37 @@
 {% block title %}App Management{% endblock %}
 
 {% block body %}
-
-    <div class="card" style="width: 18rem;">
-        <div class="card-body">
-            <h5 class="card-title">Event Sessions</h5>
-            <p class="card-text">Planung der Veranstaltungen</p>
-            <a href="{{ path('app_event_session_index') }}" class="btn btn-primary">Übersicht</a>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Veranstaltungen</h5>
+                        <p class="card-text">Planung und Verwaltung der Veranstaltungen</p>
+                        <a href="{{ path('app_event_session_index') }}" class="btn btn-primary">Übersicht</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Fragenkatalog</h5>
+                        <p class="card-text">Verwaltung der Fragen und deren Antworten</p>
+                        <a href="{{ path('app_question_index') }}" class="btn btn-primary">Übersicht</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Themen</h5>
+                        <p class="card-text">Verwaltung der Themen für die Fragen</p>
+                        <a href="{{ path('app_topic_index') }}" class="btn btn-primary">Übersicht</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
+
 {% endblock %}

@@ -5,8 +5,6 @@
 {% endblock %}
 
 {% block body %}
-    <div id="binary"></div>
-
     {% if not eventSession %}
         <div class="col-lg-8 mx-auto p-3 py-md-5">
             <div class="alert alert-danger" role="alert">
@@ -17,11 +15,37 @@
 
     {% endif %}
     <header class="text-center">
-        <h1 class="start">Nerd oder Normalo?!</h1>
+        <h1 class="start mb-5">
+            Nerd oder Normalo?!
+            <span class="text-muted">Teste dein IT-Wissen</span>
+        </h1>
     </header>
     <main>
         {% if eventSession %}
-        <a href="{{ path('app_quiz', {'id': eventSession.id}) }}" class="press-start">$ ./start.sh</a>
+            <div class="container mt-5">
+                <div class="row mb-5">
+                    <div class="col mx-auto text-center">
+                        <a href="{{ path('app_quiz', {'id': eventSession.id}) }}" class="press-start">$ ./start.sh</a>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-auto mx-auto text-center">
+                        <div class="alert alert-secondary mt-5">
+                            <h4 class="alert-heading">
+                                <i class="bi-geo"></i>
+                                {{ eventSession.title }}
+                            </h4>
+                            <p class="small">
+                                {{ eventSession.decription }}
+                            </p>
+                            <p class="mb-0">
+                                <i class="bi-calendar2-event"></i>
+                                {{ eventSession.eventDate|date("d. M Y") }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% endif %}
     </main>
 {% endblock %}

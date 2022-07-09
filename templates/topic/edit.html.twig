@@ -1,0 +1,13 @@
+{% extends 'mgmt.html.twig' %}
+
+{% block title %}Neues Thema{% endblock %}
+
+{% block body %}
+    <h1>Thema bearbeiten</h1>
+
+    {{ include('topic/_form.html.twig') }}
+
+    <a href="{{ path('app_topic_index') }}">Zurück zur Übersicht</a>
+    {{ include('topic/_delete_form.html.twig') }}
+
+{% endblock %}

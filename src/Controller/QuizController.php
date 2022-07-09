@@ -28,6 +28,8 @@ class QuizController extends AbstractController
         }
         $slug = ByteString::fromRandom(10)->toString();
         $quiz = new Quiz();
+        foreach ($eventSession->getTopics() as $topic)
+            $quiz->addTopic($topic);
         $quiz->setSlug($slug)
             ->setEventSession($eventSession)
             ->setStartedAt(new \DateTimeImmutable());

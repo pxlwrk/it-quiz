@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\QuestionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuestionRepository::class)]
@@ -19,27 +21,17 @@ class Question
     #[ORM\Column(type: 'integer')]
     private $difficulty;
 
-    #[ORM\Column(type: 'string', length: 255)]
-    private $answerA;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $answerB;
-
-    #[ORM\Column(type: 'string', length: 255)]
-    private $answerC;
-
     #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'Questions')]
     #[ORM\JoinColumn(nullable: false)]
     private $Topic;
 
-    #[ORM\Column(type: 'boolean')]
-    private $solutionA;
+    #[ORM\OneToMany(mappedBy: 'Question', targetEntity: Answer::class)]
+    private $Answers;
 
-    #[ORM\Column(type: 'boolean')]
-    private $solutionB;
-
-    #[ORM\Column(type: 'boolean')]
-    private $solutionC;
+    public function __construct()
+    {
+        $this->Answers = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -70,42 +62,6 @@ class Question
         return $this;
     }
 
-    public function getAnswerA(): ?string
-    {
-        return $this->answerA;
-    }
-
-    public function setAnswerA(string $answerA): self
-    {
-        $this->answerA = $answerA;
-
-        return $this;
-    }
-
-    public function getAnswerB(): ?string
-    {
-        return $this->answerB;
-    }
-
-    public function setAnswerB(string $answerB): self
-    {
-        $this->answerB = $answerB;
-
-        return $this;
-    }
-
-    public function getAnswerC(): ?string
-    {
-        return $this->answerC;
-    }
-
-    public function setAnswerC(string $answerC): self
-    {
-        $this->answerC = $answerC;
-
-        return $this;
-    }
-
     public function getTopic(): ?Topic
     {
         return $this->Topic;
@@ -118,39 +74,34 @@ class Question
         return $this;
     }
 
-    public function isSolutionA(): ?bool
+    /**
+     * @return Collection<int, Answer>
+     */
+    public function getAnswers(): Collection
     {
-        return $this->solutionA;
+        return $this->Answers;
     }
 
-    public function setSolutionA(bool $solutionA): self
+    public function addAnswer(Answer $answer): self
     {
-        $this->solutionA = $solutionA;
+        if (!$this->Answers->contains($answer)) {
+            $this->Answers[] = $answer;
+            $answer->setQuestion($this);
+        }
 
         return $this;
     }
 
-    public function isSolutionB(): ?bool
+    public function removeAnswer(Answer $answer): self
     {
-        return $this->solutionB;
-    }
-
-    public function setSolutionB(bool $solutionB): self
-    {
-        $this->solutionB = $solutionB;
+        if ($this->Answers->removeElement($answer)) {
+            // set the owning side to null (unless already changed)
+            if ($answer->getQuestion() === $this) {
+                $answer->setQuestion(null);
+            }
+        }
 
         return $this;
     }
 
-    public function isSolutionC(): ?bool
-    {
-        return $this->solutionC;
-    }
-
-    public function setSolutionC(bool $solutionC): self
-    {
-        $this->solutionC = $solutionC;
-
-        return $this;
-    }
 }

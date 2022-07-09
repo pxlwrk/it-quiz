@@ -1,0 +1,13 @@
+{% extends 'mgmt.html.twig' %}
+
+{% block title %}Fragenkatalog{% endblock %}
+
+{% block body %}
+    <h1>Frage bearbeiten</h1>
+
+    {{ include('question/_form.html.twig') }}
+
+    <a href="{{ path('app_question_index') }}">Zurück zur Übersicht</a>
+    {{ include('question/_delete_form.html.twig') }}
+
+{% endblock %}

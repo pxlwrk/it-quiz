@@ -1,0 +1,32 @@
+{% extends 'mgmt.html.twig' %}
+
+{% block title %}Themen{% endblock %}
+
+{% block body %}
+    <h1>Themen</h1>
+    <div class="text-end mb-3"><a class="btn btn-outline-success btn-sm" href="{{ path('app_topic_new') }}">Erstellen</a></div>
+    <div class="list-group">
+        {% for topic in topics %}
+            <div
+                    class="list-group-item list-group-item-action"
+            >
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ topic.name }}</h5>
+                    <small>
+                        <span class="badge rounded-pill bg-primary">{{ topic.questions.count }} Fragen</span>
+                        <span class="badge rounded-pill bg-info">{{ topic.quizzes.count }} Quizze</span>
+                    </small>
+                </div>
+                <p class="mt-1 mb-1">
+                    <a href="{{ path('app_topic_edit', {'id': topic.id}) }}" class="btn btn-sm btn-outline-warning">Bearbeiten</a>
+                </p>
+            </div>
+        {% else %}
+            <div class="list-group-item list-group-item-action bg-light">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-danger">Noch kein Thema angelegt</h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

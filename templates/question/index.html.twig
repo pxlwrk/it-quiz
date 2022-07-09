@@ -1,0 +1,42 @@
+{% extends 'mgmt.html.twig' %}
+
+{% block title %}Fragenkatalog{% endblock %}
+
+{% block body %}
+    <h1>Fragen</h1>
+    <div class="text-end mb-3"><a class="btn btn-outline-success btn-sm" href="{{ path('app_question_new') }}">Erstellen</a></div>
+    <div class="list-group">
+        {% for question in questions %}
+            <div
+                    class="list-group-item list-group-item-action"
+            >
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ question.title }}</h5>
+                    <small>
+                        <span class="badge rounded-pill bg-primary">{{ question.answers.count }} Antworten</span>
+                    </small>
+                </div>
+                <p class="small">
+                    <span class="badge rounded-pill bg-{{ question.difficulty == 1
+                    ? 'success ">leicht'
+                    : question.difficulty == 2
+                    ? 'warning ">mittel'
+                    : 'danger ">schwer' }}
+                        </span>
+                        <span class="badge bg-secondary">{{ question.topic }}</span>
+                </p>
+                <p class="mt-1 mb-1">
+
+                    <a href="{{ path('app_question_edit', {'id': question.id}) }}" class="btn btn-sm btn-outline-warning">Bearbeiten</a>
+                    <a href="{{ path('app_question_show', {'id': question.id}) }}" class="btn btn-sm btn-outline-primary">Antworten</a>
+                </p>
+            </div>
+        {% else %}
+            <div class="list-group-item list-group-item-action bg-light">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-danger">Noch keine Frage angelegt</h5>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -20,11 +20,12 @@
             </script>
         {% endblock %}
     </head>
-    <body>
-        {% block body %}{% endblock %}
+    <body class="bg-dark">
+    <div id="binary"></div>
+    {% block body %}{% endblock %}
         <footer class="fixed-bottom">
             {% block footer %}{% endblock %}
-            <div class="powered-by"></div>
         </footer>
+    <a href="{{ path('app_management') }}" ><div class="powered-by"></div></a>
     </body>
 </html>
