@@ -3,7 +3,7 @@
 // customize some Bootstrap variables
 //$primary: darken(#428bca, 20%);
 
-$dark: #084565;
+$dark: #0f3249;
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
@@ -18,7 +18,7 @@ footer {
 }
 
 #binary {
-  background-color: #0e345c;
+  background-color: $dark;
   max-width: 120vw;
   max-height: 120vh;
   word-wrap: break-word;
@@ -29,13 +29,16 @@ footer {
   right: -20px;
   bottom: -20px;
   font-size:5vh;
-  opacity: 10%;
   font-family: monospace;
   font-style: italic;
   line-height: 5vh;
   z-index: -999;
   overflow: hidden;
-  color: #eee;
+  color: lighten($dark, 5%);
+  b {
+    color: lighten($dark, 10%);
+    font-weight: normal;
+  }
 }
 
 h1.start {
@@ -47,7 +50,7 @@ h1.start {
   display: inline-block;
   transform: rotate(-5deg);
   margin-top: 20vh;
-  animation: 15s h1start ease-in-out infinite;
+  animation: 20s h1start ease-in-out infinite;
   margin-left: -5vw;
   line-height: 6vw;
   span {

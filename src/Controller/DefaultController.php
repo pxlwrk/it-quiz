@@ -9,6 +9,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends AbstractController
 {
@@ -26,7 +27,7 @@ class DefaultController extends AbstractController
     public function getQRCode(string $slug): Response
     {
         $options = new QROptions([
-            'version'             => 2,
+            'version'             => 4,
             'outputType'          => QRCode::OUTPUT_MARKUP_SVG,
             'imageBase64'         => false,
             'eccLevel'            => QRCode::ECC_L,
@@ -34,9 +35,11 @@ class DefaultController extends AbstractController
             'circleRadius'        => 0.4,
             // connect paths
             'connectPaths'        => true,
+            'markupDark'          => "#FFFFFF",
+            'markupLight'         => "#0f3249",
         ]);
         $qr = new QRCode($options);
-        $data = $this->generateUrl('quiz_play', ['slug' => $slug]);
+        $data = $this->generateUrl('quiz_play', ['slug' => $slug], UrlGeneratorInterface::ABSOLUTE_URL);
         $headers = array(
             'Content-Type'     => 'image/svg+xml',
             'Content-Disposition' => 'inline; filename="'.$slug.'.svg"');

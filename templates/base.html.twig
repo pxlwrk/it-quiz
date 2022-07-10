@@ -13,9 +13,11 @@
             {{ encore_entry_script_tags('app') }}
             <script type="text/javascript">
                 $(document).ready(function () {
-                    for (let i = 0; i <100; i++) {
-                        $('#binary').append(Math.random().toString(2).substring(2, 1000));
+                    for (let i = 0; i <70; i++) {
+                        $('#binary').append(Math.random().toString(2).substring(2));
                     }
+                    var code = $('#binary').text();
+                    $('#binary').html(code.replace(/101010/g, '<b>101010</b>0'));
                 });
             </script>
         {% endblock %}

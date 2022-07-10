@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/event/session')]
+#[Route('/event')]
 class EventSessionController extends AbstractController
 {
     #[Route('/', name: 'app_event_session_index', methods: ['GET'])]
