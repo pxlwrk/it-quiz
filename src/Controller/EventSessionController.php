@@ -30,7 +30,10 @@ class EventSessionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $eventSessionRepository->add($eventSession, true);
-
+            $this->addFlash(
+                'success',
+                'Ich habe eine neue Veranstaltung für dich angelegt!'
+            );
             return $this->redirectToRoute('app_event_session_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -56,7 +59,10 @@ class EventSessionController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $eventSessionRepository->add($eventSession, true);
-
+            $this->addFlash(
+                'success',
+                'Deine Änderungen habe ich für dich gespeichert!'
+            );
             return $this->redirectToRoute('app_event_session_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,7 +78,10 @@ class EventSessionController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$eventSession->getId(), $request->request->get('_token'))) {
             $eventSessionRepository->remove($eventSession, true);
         }
-
+        $this->addFlash(
+            'warning',
+            'Ich habe die Veranstaltung für dich gelöscht und alle zugehörigen Quizze auch!'
+        );
         return $this->redirectToRoute('app_event_session_index', [], Response::HTTP_SEE_OTHER);
     }
 
@@ -81,6 +90,10 @@ class EventSessionController extends AbstractController
     {
         $eventSession->setIsActive(!$eventSession->isIsActive());
         $eventSessionRepository->add($eventSession, true);
+        $this->addFlash(
+            'success',
+            'Ich habe die Sichtbarkeit der Veranstaltung für dich angepasst.'
+        );
         return $this->redirectToRoute('app_event_session_index', [], Response::HTTP_SEE_OTHER);
     }
 }

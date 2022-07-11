@@ -1,0 +1,24 @@
+{% if label == 'success' %}
+    {% set title = 'Gut gemacht!' %}
+    {% set color = '#36A113' %}
+{% elseif label == 'warning' %}
+    {% set title = 'Huch ... jetzt ist was passiert' %}
+    {% set color = '#C4941A' %}
+{% elseif label == 'error' %}
+    {% set title = 'Oh oh ... da stimmt was nicht!' %}
+    {% set color = '#981111' %}
+{% else %}
+    {% set title = 'Aufgepasst...' %}
+    {% set color = '#1A87C4' %}
+{% endif %}
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" {{ stimulus_controller('toast') }}>
+    <div class="toast-header">
+        <svg class="rounded me-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="{{ color }}"></rect></svg>
+        <strong class="me-auto">{{ title }}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="toast"
+                aria-label="Schliessen"></button>
+    </div>
+    <div class="toast-body">
+        {{ message }}
+    </div>
+</div>

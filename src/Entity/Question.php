@@ -25,7 +25,7 @@ class Question
     #[ORM\JoinColumn(nullable: false)]
     private $Topic;
 
-    #[ORM\OneToMany(mappedBy: 'Question', targetEntity: Answer::class)]
+    #[ORM\OneToMany(mappedBy: 'Question', targetEntity: Answer::class, orphanRemoval: true)]
     private $Answers;
 
     public function __construct()
@@ -104,4 +104,8 @@ class Question
         return $this;
     }
 
+    public function __toString()
+    {
+        return $this->title;
+    }
 }

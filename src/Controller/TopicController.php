@@ -30,7 +30,10 @@ class TopicController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $topicRepository->add($topic, true);
-
+            $this->addFlash(
+                'success',
+                'Ich habe ein neues Thema für dich angelegt!'
+            );
             return $this->redirectToRoute('app_topic_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -56,7 +59,10 @@ class TopicController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $topicRepository->add($topic, true);
-
+            $this->addFlash(
+                'success',
+                'Deine Änderungen habe ich für dich gespeichert!'
+            );
             return $this->redirectToRoute('app_topic_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -72,7 +78,10 @@ class TopicController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$topic->getId(), $request->request->get('_token'))) {
             $topicRepository->remove($topic, true);
         }
-
+        $this->addFlash(
+            'warning',
+            'Ich habe das Thema für dich gelöscht!'
+        );
         return $this->redirectToRoute('app_topic_index', [], Response::HTTP_SEE_OTHER);
     }
 }

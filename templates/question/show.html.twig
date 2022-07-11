@@ -1,30 +1,47 @@
-{% extends 'base.html.twig' %}
+{% extends 'mgmt.html.twig' %}
 
-{% block title %}Question{% endblock %}
+{% block title %}Antworten{% endblock %}
 
 {% block body %}
-    <h1>Question</h1>
+    <h1>Antworten</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ question.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ question.title }}</td>
-            </tr>
-            <tr>
-                <th>Difficulty</th>
-                <td>{{ question.difficulty }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <h2 class="display-5 text-center">{{ question.title }}</h2>
+    <div class="list-group">
+        {% for answer in question.answers %}
+            <div
+                    class="list-group-item list-group-item-action"
+            >
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{ answer.title }}</h5>
+                    <small>
+                        <span class="badge rounded-pill bg-{{ answer.isCorrect
+                        ? 'success ">richtig'
+                        : 'danger ">falsch' }}
+                        </span>
+                    </small>
+                </div>
+                <p class="mt-1 mb-1">
+                    <a href="{{ path('app_question_answer_delete', {'id': answer.id}) }}" class="btn btn-sm btn-outline-danger">Löschen</a>
+                </p>
+            </div>
+        {% else %}
+            <div class="list-group-item list-group-item-action bg-light">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-danger">Noch keine Antwort angelegt</h5>
+                </div>
+            </div>
+        {% endfor %}
+            <div class="card mt-5">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        Antwort hinzufügen
+                    </h5>
+                    {{ include('question/_answer.html.twig') }}
+                </div>
+            </div>
+    </div>
+        <p class="mt-5">
+            <a href="{{ path('app_question_index') }}">Zurück zur Übersicht</a>
+        </p>
 
-    <a href="{{ path('app_question_index') }}">back to list</a>
-
-    <a href="{{ path('app_question_edit', {'id': question.id}) }}">edit</a>
-
-    {{ include('question/_delete_form.html.twig') }}
 {% endblock %}
