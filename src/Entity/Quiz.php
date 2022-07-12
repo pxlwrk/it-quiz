@@ -8,6 +8,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: QuizRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class Quiz
 {
     #[ORM\Id]
@@ -31,11 +32,21 @@ class Quiz
     #[ORM\JoinColumn(nullable: false)]
     private $EventSession;
 
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $step;
+
+    #[ORM\Column(type: 'integer', nullable: true)]
+    private $points;
+
+    #[ORM\ManyToMany(targetEntity: Question::class)]
+    private $Questions;
+
 
     public function __construct()
     {
         $this->Topics = new ArrayCollection();
         $this->EventSessions = new ArrayCollection();
+        $this->Questions = new ArrayCollection();
     }
 
     public function __toString()
@@ -123,5 +134,59 @@ class Quiz
         return $this;
     }
 
+    public function getStep(): ?int
+    {
+        return $this->step;
+    }
+
+    public function setStep(?int $step): self
+    {
+        $this->step = $step;
+
+        return $this;
+    }
+
+    public function getPoints(): ?int
+    {
+        return $this->points;
+    }
+
+    public function setPoints(?int $points): self
+    {
+        $this->points = $points;
+
+        return $this;
+    }
+
+    #[ORM\PrePersist]
+    public function setActiveValue(): void
+    {
+        $this->step = 1;
+        $this->points = 0;
+    }
+
+    /**
+     * @return Collection<int, Question>
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->Questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->Questions->contains($question)) {
+            $this->Questions[] = $question;
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        $this->Questions->removeElement($question);
+
+        return $this;
+    }
 
 }

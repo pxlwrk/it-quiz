@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\EventSession;
+use App\Entity\Question;
 use App\Entity\Quiz;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -54,9 +55,11 @@ class QuizController extends AbstractController
             );
         }
         $em = $doctrine->getManager();
+        $question = $em->getRepository(Question::class)->findRandom($quiz);
 
         return $this->render('/quiz/play.html.twig', [
-            'quiz' => $quiz
+            'quiz' => $quiz,
+            'question' => $question
         ]);
     }
 }
