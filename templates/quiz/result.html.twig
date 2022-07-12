@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+
+{% endblock %}
+
+{% block body %}
+    <div class="container mt-5">
+        <div class="row mb-5">
+            <div class="col">
+                <h2>
+                    <a href="{{ path('app_default') }}" class="text-white text-decoration-none">{{ app.request.server.get('APP_TITLE') }}</a>
+                </h2>
+            </div>
+        </div>
+        <div class="row mb-5">
+            <div class="col-8 mx-auto">
+                <div class="alert alert-success text-center">
+                    <div class="alert-heading">
+                        <h3>{{ random(['Unglaublich!', 'Echt wahr?!', 'Ich fasse es nicht!', 'Einfach nur toll!', 'Wundervoll!']) }}</h3>
+                        <p class="mb-0 lead">Du hast fantastische <b>{{ quiz.points }} Punkte</b> erzielt!</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <div class="alert alert-light text-center">
+                    <div class="alert-heading">
+                        <h3>Hall of Fame</h3>
+                        <table class="table table-striped table-borderless">
+                            <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Quiz</th>
+                                <th scope="col">Start</th>
+                                <th scope="col">Punkte</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% set i = 1 %}
+                            {% for q in quizzes %}
+                            <tr {% if q.slug == quiz.slug %}class="table-primary"{% endif %}>
+                                <th scope="row">{{ i }}</th>
+                                <td>@{{ q.slug }}</td>
+                                <td>{{ q.startedAt|date("H:i") }} Uhr</td>
+                                <td>{{ q.points }}</td>
+                            </tr>
+                                {% set i = i + 1 %}
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block footer %}
+    <div id="qrcode">
+        <img src="{{ path('qr_svg', {'slug': quiz.slug}) }}" alt="{{ quiz.slug }}" />
+    </div>
+{% endblock %}

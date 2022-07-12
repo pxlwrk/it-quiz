@@ -16,7 +16,7 @@
     {% endif %}
     <header class="text-center">
         <h1 class="start mb-5">
-            Nerd oder Normalo?!
+            {{ app.request.server.get('APP_TITLE') }}
             <span class="text-muted">Teste dein IT-Wissen</span>
         </h1>
     </header>
@@ -40,7 +40,7 @@
                             </p>
                             <p class="mb-0">
                                 <i class="bi-calendar2-event"></i>
-                                {{ eventSession.eventDate|date("d. M Y") }}
+                                {{ eventSession.eventDate|format_date(pattern=('d. MMMM YYYY'), locale='de') }}
                             </p>
                         </div>
                     </div>

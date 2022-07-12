@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\EventSession;
 use App\Entity\Question;
 use App\Entity\Quiz;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -38,6 +39,18 @@ class QuizRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+
+    public function hallOfFame(EventSession $eventSession)
+    {
+        return $this->createQueryBuilder('q')
+            ->setMaxResults(5)
+            ->andWhere('q.EventSession = :eventsession')
+            ->setParameter('eventsession', $eventSession)
+            ->orderBy('q.points', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
     }
 
 //    /**

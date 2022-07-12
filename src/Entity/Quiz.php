@@ -41,6 +41,9 @@ class Quiz
     #[ORM\ManyToMany(targetEntity: Question::class)]
     private $Questions;
 
+    #[ORM\Column(type: 'datetime')]
+    private $lastStart;
+
 
     public function __construct()
     {
@@ -163,6 +166,7 @@ class Quiz
     {
         $this->step = 1;
         $this->points = 0;
+        $this->lastStart = new \DateTime();
     }
 
     /**
@@ -185,6 +189,18 @@ class Quiz
     public function removeQuestion(Question $question): self
     {
         $this->Questions->removeElement($question);
+
+        return $this;
+    }
+
+    public function getLastStart(): ?\DateTimeInterface
+    {
+        return $this->lastStart;
+    }
+
+    public function setLastStart(\DateTimeInterface $lastStart): self
+    {
+        $this->lastStart = $lastStart;
 
         return $this;
     }

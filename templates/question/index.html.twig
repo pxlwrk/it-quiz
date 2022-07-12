@@ -3,7 +3,7 @@
 {% block title %}Fragenkatalog{% endblock %}
 
 {% block body %}
-    <h1>Fragen</h1>
+    <h1>Fragen <span class="badge bg-secondary">{{ questions|length }}</span></h1>
     <div class="text-end mb-3"><a class="btn btn-outline-success btn-sm" href="{{ path('app_question_new') }}">Erstellen</a></div>
     <div class="list-group">
         {% for question in questions %}

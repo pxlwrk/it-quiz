@@ -13,7 +13,12 @@
             <div class="d-flex w-100 justify-content-between">
                 <h5 class="mb-1">{{ event_session.title }}</h5>
                 <small>
+                    {% set maxPoints = 0 %}
+                    {% for q in event_session.quizzes %}
+                    {% set maxPoints = max(q.points, maxPoints) %}
+                    {% endfor %}
                     <span class="badge rounded-pill bg-primary">{{ event_session.quizzes.count }} Quizze</span>
+                    <span class="badge rounded-pill bg-info">Highscore: {{ maxPoints }}</span>
                     <a href="{{ path('app_event_session_active', {'id': event_session.id}) }}">
                     {% if event_session.isActive %}
                     <span class="badge rounded-pill bg-success">
