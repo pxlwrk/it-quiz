@@ -13,6 +13,6 @@ Online quiz game to find new employees with fun. Built for events with live acti
 
 ## License
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[![license](https://img.shields.io/badge/license-MIT-red.svg?style=flat-square)](LICENSE)
 
 
