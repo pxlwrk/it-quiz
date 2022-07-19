@@ -4,6 +4,7 @@
 //$primary: darken(#428bca, 20%);
 
 $dark: #0f3249;
+$warning: #facf7e;
 
 // the ~ allows you to reference things in node_modules
 @import "~bootstrap/scss/bootstrap";
@@ -42,7 +43,7 @@ footer {
 }
 
 h1.start {
-  font-size: 8vw;
+  font-size: 7vw;
   background-color: #FFF;
   color: #000000;
   font-weight: bolder;
@@ -50,7 +51,7 @@ h1.start {
   display: inline-block;
   transform: rotate(-5deg);
   margin-top: 20vh;
-  animation: 20s h1start ease-in-out infinite;
+  animation: 15s h1start linear infinite;
   margin-left: -5vw;
   line-height: 6vw;
   span {
@@ -73,23 +74,24 @@ h1.start {
     margin-left: 5vw;
   }
 }
+$startcolor: #e1d25e;
 
 a.press-start {
   font-size: 5vw;
   text-decoration: none;
-  color: #e1d25e;
+  color: $startcolor;
   font-family: monospace;
-  text-shadow: 0 0 5px #CCC;
+
   animation: 2s anim-blink ease-in-out infinite;
 }
 
 @keyframes anim-blink {
   0% {
-    color: #e1d25e;
+    color: $startcolor;
   }
   50% {
-    color: #d7ae18;
-    text-shadow: 0 0 1px #FFF;
+    color: lighten($startcolor, 10%);
+    text-shadow: 0 0 1vw lighten($startcolor, 10%);
   }
 }
 
@@ -116,4 +118,8 @@ a.press-start {
   color: #000000;
   font-weight: bolder;
   padding: 1vw 2vw;
+}
+
+.answer-btn {
+  font-size: 2vw;
 }

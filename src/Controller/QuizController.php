@@ -6,7 +6,10 @@ use App\Entity\Answer;
 use App\Entity\EventSession;
 use App\Entity\Question;
 use App\Entity\Quiz;
+use App\Form\QuizFameType;
+use App\Repository\QuizRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +23,7 @@ class QuizController extends AbstractController
      * @param ManagerRegistry $doctrine
      * @return Response
      */
-    #[Route('/quiz/new/{id}', name: 'app_quiz')]
+    #[Route('/quiz/new/{id}', name: 'app_quiz', methods: ['GET'])]
     public function start(ManagerRegistry $doctrine, EventSession $eventSession): Response
     {
         if (!$eventSession) {
@@ -49,7 +52,7 @@ class QuizController extends AbstractController
      * @param string $slug
      * @return Response
      */
-    #[Route('/quiz/{slug}', name: 'quiz_play')]
+    #[Route('/quiz/{slug}', name: 'quiz_play', methods: ['GET'])]
     public function play(ManagerRegistry $doctrine, Quiz $quiz): Response
     {
         if (!$quiz) {
@@ -74,15 +77,13 @@ class QuizController extends AbstractController
         $quiz->setLastStart(new \DateTime());
         $em->getRepository(Quiz::class)->add($quiz, true);
 
-
-
         return $this->render('/quiz/play.html.twig', [
             'quiz' => $quiz,
             'question' => $question
         ]);
     }
 
-    #[Route('/quiz/{slug}/vote/{question}/{answer}', name: 'quiz_vote')]
+    #[Route('/quiz/{slug}/vote/{question}/{answer}', name: 'quiz_vote', methods: ['GET'])]
     public function vote(ManagerRegistry $doctrine, Quiz $quiz, Question $question, Answer $answer)
     {
         if (!$quiz->getQuestions()->contains($question)) {
@@ -110,18 +111,25 @@ class QuizController extends AbstractController
             'quiz' => $quiz,
             'question' => $question,
             'answer' => $answer,
-            'tf' => $timeFactor,
-            'used' => $usedTime
         ]);
     }
 
-    #[Route('/quiz/{slug}/result', name: 'app_quiz_result')]
-    public function results(ManagerRegistry $doctrine, Quiz $quiz)
+    #[Route('/quiz/{slug}/result', name: 'app_quiz_result', methods: ['GET', 'POST'])]
+    public function results(Request $request, ManagerRegistry $doctrine, Quiz $quiz, QuizRepository $quizRepository):Response
     {
+        $form = $this->createForm(QuizFameType::class, $quiz);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $quizRepository->add($quiz, true);
+            return $this->redirectToRoute('app_quiz_result', ['slug' => $quiz->getSlug()] );
+        }
+
         $quizzes = $doctrine->getRepository(Quiz::class)->hallOfFame($quiz->getEventSession());
-        return $this->render('/quiz/result.html.twig', [
+        return $this->renderForm('/quiz/result.html.twig', [
             'quiz' => $quiz,
-            'quizzes' => $quizzes
+            'quizzes' => $quizzes,
+            'form' => $form
         ]);
     }
 }

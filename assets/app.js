@@ -20,6 +20,10 @@ require('bootstrap');
 // require('bootstrap/js/dist/tooltip');
 // require('bootstrap/js/dist/toast');
 
-$(document).ready(function() {
-
+$(document).ready(function () {
+    for (let i = 0; i <70; i++) {
+        $('#binary').append(Math.random().toString(2).substring(2));
+    }
+    var code = $('#binary').text();
+    $('#binary').html(code.replace(/101010/g, '<b>101010</b>0'));
 });

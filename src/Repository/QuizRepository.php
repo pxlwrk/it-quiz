@@ -44,7 +44,7 @@ class QuizRepository extends ServiceEntityRepository
     public function hallOfFame(EventSession $eventSession)
     {
         return $this->createQueryBuilder('q')
-            ->setMaxResults(5)
+            ->setMaxResults(10)
             ->andWhere('q.EventSession = :eventsession')
             ->setParameter('eventsession', $eventSession)
             ->orderBy('q.points', 'DESC')

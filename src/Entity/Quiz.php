@@ -44,6 +44,9 @@ class Quiz
     #[ORM\Column(type: 'datetime')]
     private $lastStart;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $famename = null;
+
 
     public function __construct()
     {
@@ -201,6 +204,18 @@ class Quiz
     public function setLastStart(\DateTimeInterface $lastStart): self
     {
         $this->lastStart = $lastStart;
+
+        return $this;
+    }
+
+    public function getFamename(): ?string
+    {
+        return $this->famename;
+    }
+
+    public function setFamename(?string $famename): self
+    {
+        $this->famename = $famename;
 
         return $this;
     }

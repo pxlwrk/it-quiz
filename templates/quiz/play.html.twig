@@ -1,47 +1,48 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="container mt-5">
+    <div class="container-fluid my-5">
         <div class="row">
-            <div class="col">
-                <h2>
-                    <a href="{{ path('app_default') }}" class="text-white text-decoration-none">{{ app.request.server.get('APP_TITLE') }}</a>
-                </h2>
-            </div>
-            <div class="col-auto mx-auto mb-auto">
-                <div class="topic">
-                    <div class="alert alert-dark small">
-                        <h5 class="alert-heading">Punkte: {{ quiz.points }}</h5>
-                        <p class="mb-0">Thema: {{ question.topic }}</p>
-                        <p class="mb-0">Schwierigkeit: {{ question.difficulty }}</p>
-                        <p class="mb-0">Last: {{ quiz.lastStart|date("H:i:s") }}</p>
-                        <p class="mb-0">Step: {{ quiz.step }}</p>
+            <div class="col-10 mx-auto">
+                <div class="container-fluid">
+                    <div class="row align-items-center pb-5">
+                        <div class="col-8">
+                            <h2 class="display-2">
+                                <a href="{{ path('app_default') }}" class="text-white text-decoration-none">{{ app.request.server.get('APP_TITLE') }}</a>
+                            </h2>
+                        </div>
+                        <div class="col text-white">
+                            <h3>Thema: {{ question.topic }}</h3>
+                        </div>
+                        <div class="col">
+                            <div class="text-end">
+                                <h2 class="text-white">{{ quiz.points }} Punkte</h2>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    <div class="container mt-5">
+    <div class="container-fluid my-5 py-5">
         <div class="row">
-            <div class="col">
+            <div class="col-10 mx-auto">
                 <div class="question">
                     {{ question.title }}
                 </div>
             </div>
         </div>
     </div>
-    <div class="container mt-5">
+    {% for answer in question.answers|sort((a,b) => a.title <=> b.title) %}
+    <div class="container-fluid my-5">
         <div class="row">
-            <div class="d-grid gap-4 col-8 mx-auto">
-
-            {% for answer in question.answers|sort((a,b) => a.title <=> b.title) %}
+            <div class="col-8 mx-auto">
                 <a href="{{ path('quiz_vote', {'slug': quiz.slug, 'question': question.id, 'answer': answer.id}) }}"
-                   class="btn btn-lg btn-warning">{{ answer.title }}</a>
-            {% endfor %}
+                   class="btn btn-lg btn-warning d-block answer-btn p-3">{{ answer.title }}</a>
             </div>
-
         </div>
     </div>
+    {% endfor %}
+
 {% endblock %}
 
 {% block title %}
