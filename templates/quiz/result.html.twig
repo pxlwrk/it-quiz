@@ -85,8 +85,8 @@
     {% endif %}
 {% endblock %}
 
-{% block footer %}
+{# block footer %}
     <div id="qrcode">
         <img src="{{ path('qr_svg', {'slug': quiz.slug}) }}" alt="{{ quiz.slug }}" />
     </div>
-{% endblock %}
+{% endblock #}
